@@ -98,3 +98,13 @@ Editor Persistence
 
 
 └── yjs-server.js
+
+👨‍💻 Author
+Harshil Tyagi
+
+GitHub
+https://github.com/harshilltyagi
+
+Live Demo: https://1on1-mentor-student-platform.vercel.app/
+Backend link : https://oneon1mentor-student-platform-1.onrender.com
+
