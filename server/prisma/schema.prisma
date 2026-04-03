@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../generated/prisma"
+  
+}
+
+datasource db {
+  provider = "postgresql"
+  
+}
+
+model User{
+ id Int @id @default(autoincrement())
+ name String
+ email String @unique
+ passwordHash String
+ role  String @default("student")
+ Sessions Session[]
+}
+
+model Session {
+
+  id Int @id @default(autoincrement())
+  meetingCode  String @unique
+   mentorId    Int
+  status String @default("waiting")
+  mentor User @relation(fields: [mentorId] , references: [id]) 
+
+}
+
+model EditorState {
+  id         Int      @id @default(autoincrement())
+  meetingCode String  @unique
+  yjsState   Bytes
+  language   String   @default("javascript")
+  updatedAt  DateTime @updatedAt
+  createdAt  DateTime @default(now())
+}

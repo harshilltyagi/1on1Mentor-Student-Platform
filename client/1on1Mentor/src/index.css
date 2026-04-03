@@ -1,0 +1,23 @@
+.yRemoteSelection {
+  background-color: rgba(0, 128, 255, 0.25);
+}
+
+.yRemoteSelectionHead {
+  position: absolute;
+  border-left: 2px solid #0080ff;
+  border-top: 2px solid #0080ff;
+  border-bottom: 2px solid #0080ff;
+  box-sizing: border-box;
+}
+
+.yRemoteSelectionHead::after {
+  position: absolute;
+  content: "Remote User";
+  top: -20px;
+  left: -2px;
+  font-size: 12px;
+  background-color: #0080ff;
+  color: white;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
