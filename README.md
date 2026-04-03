@@ -71,4 +71,30 @@ A real-time 1-to-1 mentoring platform* where a mentor and student can join a sha
 │   ├── .env
 │   └── index.js
 │
+
+How It Works
+
+Authentication
+
+Users can sign up and log in as either:
+	•	Mentor
+	•	Student
+
+Session Flow
+	•	Mentor creates a session
+	•	Student joins using the meeting code
+	•	Both users enter the same room
+
+Inside the Room
+	•	Video call starts using WebRTC
+	•	Chat works using Socket.IO
+	•	Both users can edit the same code in real time using Yjs + Monaco
+	•	Users can see who is online
+	•	Mentor can end the session by leaving
+
+Editor Persistence
+	•	Code can be saved to the database
+	•	Saved code is loaded back when the room is reopened
+
+
 └── yjs-server.js
