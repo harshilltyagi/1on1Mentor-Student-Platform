@@ -98,7 +98,6 @@ function Dashboard() {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      {/* Top Bar */}
       <div
         style={{
           background: "#1f2937",
@@ -134,7 +133,6 @@ function Dashboard() {
         </button>
       </div>
 
-      {/* Main Card */}
       <div
         style={{
           maxWidth: "700px",
@@ -212,7 +210,6 @@ function Dashboard() {
           </div>
         )}
 
-        {/* Session Info */}
         {sessionData && (
           <div
             style={{
@@ -250,7 +247,6 @@ function Dashboard() {
           </div>
         )}
 
-        {/* Alerts */}
         {message && (
           <div
             style={{
