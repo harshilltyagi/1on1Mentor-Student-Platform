@@ -5,6 +5,8 @@ import Editor from "@monaco-editor/react";
 import * as Y from "yjs";
 import { WebsocketProvider } from "y-websocket";
 import { MonacoBinding } from "y-monaco";
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;
+const YJS_URL = import.meta.env.VITE_YJS_URL;
 
 const rtcConfig = {
   iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
@@ -46,11 +48,7 @@ function Room() {
     const ydoc = new Y.Doc();
     ydocRef.current = ydoc;
 
-    const provider = new WebsocketProvider(
-      "ws://localhost:1234",
-      meetingCode,
-      ydoc,
-    );
+    const provider = new WebsocketProvider(YJS_URL, meetingCode, ydoc);
     providerRef.current = provider;
 
     provider.awareness.setLocalStateField("user", {
@@ -69,7 +67,7 @@ function Room() {
     const loadSavedState = async () => {
       try {
         const res = await fetch(
-          `http://localhost:4000/api/editor/${meetingCode}`,
+          `${import.meta.env.VITE_API_URL}/api/editor/${meetingCode}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -114,7 +112,7 @@ function Room() {
 
   // ================= SOCKET + WEBRTC =================
   useEffect(() => {
-    socketRef.current = io("http://localhost:4000");
+    socketRef.current = io(SOCKET_URL);
 
     const startMedia = async () => {
       try {
@@ -277,18 +275,21 @@ function Room() {
       const update = Y.encodeStateAsUpdate(ydocRef.current);
       const base64State = btoa(String.fromCharCode(...update));
 
-      const res = await fetch("http://localhost:4000/api/editor/save", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: ` Bearer ${token}`,
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/editor/save`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: ` Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            meetingCode,
+            yjsState: base64State,
+            language,
+          }),
         },
-        body: JSON.stringify({
-          meetingCode,
-          yjsState: base64State,
-          language,
-        }),
-      });
+      );
 
       const data = await res.json();
 
