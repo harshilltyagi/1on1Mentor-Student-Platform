@@ -43,7 +43,6 @@ function Room() {
     }
   }, [token, user, navigate]);
 
-  // ================= YJS =================
   useEffect(() => {
     const ydoc = new Y.Doc();
     ydocRef.current = ydoc;
@@ -102,7 +101,6 @@ function Room() {
     };
   }, [meetingCode, token, user?.name, user?.role]);
 
-  // remote user name from awareness
   useEffect(() => {
     const otherUser = onlineUsers.find((u) => u.name !== user?.name);
     if (otherUser) {
@@ -110,7 +108,6 @@ function Room() {
     }
   }, [onlineUsers, user?.name]);
 
-  // ================= SOCKET + WEBRTC =================
   useEffect(() => {
     socketRef.current = io(SOCKET_URL);
 
@@ -255,7 +252,6 @@ function Room() {
     };
   }, [meetingCode, navigate, user?.name, user?.role]);
 
-  // ================= MONACO =================
   const handleEditorDidMount = (editor) => {
     editorRef.current = editor;
 
@@ -269,7 +265,6 @@ function Room() {
     );
   };
 
-  // ================= SAVE =================
   const handleSave = async () => {
     try {
       const update = Y.encodeStateAsUpdate(ydocRef.current);
@@ -305,7 +300,6 @@ function Room() {
     }
   };
 
-  // ================= CHAT =================
   const sendMessage = () => {
     if (!input.trim()) return;
 
@@ -318,7 +312,6 @@ function Room() {
     setInput("");
   };
 
-  // ================= ACTIONS =================
   const handleLogout = () => {
     localStorage.clear();
     navigate("/");
